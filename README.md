@@ -12,7 +12,7 @@ Forecast sports ticket prices and optimize pricing dynamically using open data a
 
 ## Setup
 ```bash
-git clone https://github.com/yourusername/ticket-pricing-optimizer.git
+git clone https://github.com/maxhightower/ticket-pricing-optimizer.git
 cd ticket-pricing-optimizer
 conda env create -f environment.yml
 ```
