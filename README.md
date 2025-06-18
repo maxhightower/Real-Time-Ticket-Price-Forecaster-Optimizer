@@ -28,3 +28,20 @@ pytest tests/
 ## License
 MIT
 
+# Ticket Pricing Optimizer (Updated)
+
+## Quickstart (Windows PowerShell)
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+# 1️⃣ Download data
+python scripts/fetch_fivethirtyeight.py   # public NFL ticket data
+$env:SEATGEEK_CLIENT_ID="YOUR_FREE_CLIENT_ID"   # optional but recommended
+python scripts/fetch_seatgeek.py          # live event snapshot
+# 2️⃣ Build DB, train model, run tests
+python scripts/build_sqlite.py
+python scripts/train_model.py
+pytest -q
+```
+If SeatGeek returns 403, register a free developer account and set `SEATGEEK_CLIENT_ID` as shown above.
