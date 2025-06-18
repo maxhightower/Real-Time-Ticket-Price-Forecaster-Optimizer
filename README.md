@@ -1,4 +1,4 @@
-"""
+
 # Ticket Pricing Optimizer
 
 Forecast sports ticket prices and optimize pricing dynamically using open data and Python.
@@ -27,4 +27,4 @@ pytest tests/
 
 ## License
 MIT
-"""
+
