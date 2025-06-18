@@ -10,26 +10,6 @@ Forecast sports ticket prices and optimize pricing dynamically using open data a
 - SQLite backend for local, lightweight analysis
 - GitHub Actions for retraining and metric tracking
 
-## Setup
-```bash
-git clone https://github.com/maxhightower/ticket-pricing-optimizer.git
-cd ticket-pricing-optimizer
-conda env create -f environment.yml
-```
-
-## Run
-```bash
-python scripts/fetch_seatgeek.py
-python scripts/build_sqlite.py
-python scripts/train_model.py
-pytest tests/
-```
-
-## License
-MIT
-
-# Ticket Pricing Optimizer (Updated)
-
 ## Quickstart (Windows PowerShell)
 ```powershell
 python -m venv .venv
@@ -45,3 +25,9 @@ python scripts/train_model.py
 pytest -q
 ```
 If SeatGeek returns 403, register a free developer account and set `SEATGEEK_CLIENT_ID` as shown above.
+
+## License
+MIT
+
+
+
