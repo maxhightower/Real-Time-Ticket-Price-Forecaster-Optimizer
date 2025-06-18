@@ -1,0 +1,17 @@
+# Byte-compiled / virtual-env
+__pycache__/
+*.py[cod]
+.venv/
+
+# Jupyter & VS Code
+.ipynb_checkpoints/
+.vscode/
+
+# Secrets
+.env
+.env.*
+
+# Data & artifacts (optional)
+data/raw/
+data/processed/
+reports/
