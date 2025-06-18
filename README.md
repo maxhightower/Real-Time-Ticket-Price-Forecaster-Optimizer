@@ -1,25 +1,30 @@
-# Project: ticket-pricing-optimizer
-Description: Real-time ticket price forecasting and dynamic optimization using public sports event data
+"""
+# Ticket Pricing Optimizer
 
-## Directory structure reference:
+Forecast sports ticket prices and optimize pricing dynamically using open data and Python.
 
-.
-├── README.md
-├── environment.yml
-├── data/
-│   ├── raw/
-│   └── processed/
-├── scripts/
-│   ├── fetch_seatgeek.py
-│   ├── build_sqlite.py
-│   ├── train_model.py
-│   └── price_optimizer.py
-├── notebooks/
-│   └── demo.ipynb
-├── reports/
-│   └── metrics.json
-├── .github/workflows/
-│   ├── retrain.yml
-│   └── pages.yml
-└── tests/
-    └── test_optimizer.py
+## Features
+- Ingests public data from FiveThirtyEight and SeatGeek API
+- Forecasts ticket prices using Prophet
+- Optimizes price recommendations with a simple elasticity model
+- SQLite backend for local, lightweight analysis
+- GitHub Actions for retraining and metric tracking
+
+## Setup
+```bash
+git clone https://github.com/yourusername/ticket-pricing-optimizer.git
+cd ticket-pricing-optimizer
+conda env create -f environment.yml
+```
+
+## Run
+```bash
+python scripts/fetch_seatgeek.py
+python scripts/build_sqlite.py
+python scripts/train_model.py
+pytest tests/
+```
+
+## License
+MIT
+"""
