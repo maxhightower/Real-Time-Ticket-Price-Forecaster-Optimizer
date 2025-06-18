@@ -2,26 +2,36 @@ import pandas as pd
 from prophet import Prophet
 import json
 import joblib
-import os
+from pathlib import Path
+
 
 def train_forecast_model():
-    df = pd.read_csv("data/raw/nfl-ticket-data.csv")
+    csv_path = Path("data/raw/nfl-ticket-data.csv")
+    if not csv_path.exists():
+        raise FileNotFoundError("data/raw/nfl-ticket-data.csv missing – run fetch_fivethirtyeight.py first")
+
+    df = pd.read_csv(csv_path)
     df = df.dropna(subset=["avg_price", "date"])
     df = df.rename(columns={"date": "ds", "avg_price": "y"})
-    
-    model = Prophet()
-    model.fit(df[["ds", "y"]])
 
-    future = model.make_future_dataframe(periods=30)
-    forecast = model.predict(future)
+    m = Prophet()
+    m.fit(df[["ds", "y"]])
 
-    os.makedirs("reports", exist_ok=True)
-    joblib.dump(model, "reports/model.pkl")
+    future = m.make_future_dataframe(periods=30)
+    forecast = m.predict(future)
+
+    Path("reports").mkdir(exist_ok=True)
+    joblib.dump(m, "reports/model.pkl")
     forecast[["ds", "yhat", "yhat_lower", "yhat_upper"]].to_csv("reports/forecast.csv", index=False)
-    
-    mae = (forecast["yhat"] - df.set_index("ds").reindex(forecast["ds"])["y"]).abs().mean()
+
+    # naive MAE (align by date)
+    actual = df.set_index("ds").reindex(forecast["ds"]).dropna()
+    mae = (forecast.set_index("ds").loc[actual.index, "yhat"] - actual["y"]).abs().mean()
+
     with open("reports/metrics.json", "w") as f:
-        json.dump({"mae": mae}, f, indent=2)
+        json.dump({"mae": float(mae)}, f, indent=2)
+
+    print(f"✔ Model trained – MAE: {mae:.2f} → reports/metrics.json")
 
 if __name__ == "__main__":
     train_forecast_model()
